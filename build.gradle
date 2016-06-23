@@ -1,0 +1,31 @@
+plugins {
+//  id 'java'
+  id 'application'
+}
+
+repositories {
+  jcenter()
+}
+
+dependencies {
+  compile 'org.springframework:spring-context:4.2.5.RELEASE'
+  testCompile 'junit:junit:4.12'
+  testCompile 'org.assertj:assertj-core:3.4.1'
+}
+
+sourceCompatibility = '1.8'
+
+// Si le plugin 'application' est activé, spécifier ici la classe principale ...
+ mainClassName = 'concurr'
+
+task wrapper(type: Wrapper) {
+  gradleVersion = '2.12'
+}
+
+task run_args (type: JavaExec, dependsOn: classes){
+    if(project.hasProperty('myargs')){
+        args(myargs.split(','))
+    }
+    main = "concurr.Main"
+    classpath = sourceSets.main.runtimeClasspath
+}
